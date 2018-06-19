@@ -1,0 +1,40 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "angular-client": [
+        "dist/angular-client"
+      ],
+      "angular-client/*": [
+        "dist/angular-client/*"
+      ],
+      "avola-client-angular": [
+        "dist/avola-client-angular"
+      ],
+      "avola-client-angular/*": [
+        "dist/avola-client-angular/*"
+      ],
+      "avola-angular": [
+        "dist/avola-angular"
+      ],
+      "avola-angular/*": [
+        "dist/avola-angular/*"
+      ]
+    }
+  }
+}

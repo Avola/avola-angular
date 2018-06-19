@@ -1,0 +1,9 @@
+{
+  "name": "avola-angular",
+  "version": "0.0.1",
+  "description": "Avola Decision angular service to execute and synchronize your decisions",
+  "peerDependencies": {
+    "@angular/common": "^6.0.3",
+    "@angular/core": "^^6.0.3"
+  }
+}
