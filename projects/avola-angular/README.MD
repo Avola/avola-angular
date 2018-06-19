@@ -26,7 +26,7 @@ npm install @avoladecision/avola-angular --save
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AvolaAngularModule } from 'avola-angular';
+import { AvolaAngularModule } from '@avoladecision/avola-angular';
 
 import { AppComponent } from './app.component';
 
@@ -53,7 +53,7 @@ export class AppModule { }
 ### Inject the service in a component and see this example on how to execute
 ```typescript
 import { Component } from '@angular/core';
-import { AvolaService, FreeExecutionRequest, ExecutionRequestData } from 'avola-angular';
+import { AvolaService, FreeExecutionRequest, ExecutionRequestData } from '@avoladecision/avola-angular';
 
 @Component({
   selector: 'app-root',
