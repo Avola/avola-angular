@@ -10,9 +10,12 @@ export class AuthService {
   private oauth2_token_key = 'oauth2_accesstoken';
 
   constructor(@Inject('config') private config: AvolaOptions, private http: HttpClient) {
+
   }
 
   refreshToken(): Promise<AuthToken> {
+    sessionStorage.removeItem(this.oauth2_token_key);
+
     return new Promise((resolve, reject) => {
       this.getAccessTokenRequest().subscribe((token) => {
         const expiredAt = new Date();
@@ -21,14 +24,14 @@ export class AuthService {
 
         resolve(token);
 
-        localStorage.setItem(this.oauth2_token_key, JSON.stringify(token));
+        sessionStorage.setItem(this.oauth2_token_key, JSON.stringify(token));
       });
     });
   }
 
   getToken(): Promise<AuthToken> {
     return new Promise((resolve, reject) => {
-      const tokenobj: AuthToken = JSON.parse(localStorage.getItem(this.oauth2_token_key));
+      const tokenobj: AuthToken = JSON.parse(sessionStorage.getItem(this.oauth2_token_key));
 
       if ((tokenobj == null || tokenobj === undefined) || this.tokenExpired()) {
         this.refreshToken().then((newtoken) => {
@@ -67,7 +70,7 @@ export class AuthService {
   }
 
   tokenExpired(): boolean {
-    const tokenobj: AuthToken = JSON.parse(localStorage.getItem(this.oauth2_token_key));
+    const tokenobj: AuthToken = JSON.parse(sessionStorage.getItem(this.oauth2_token_key));
 
     const now = new Date();
 
