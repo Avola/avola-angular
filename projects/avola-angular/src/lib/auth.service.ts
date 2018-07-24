@@ -12,18 +12,35 @@ export class AuthService {
   constructor(@Inject('config') private config: AvolaOptions, private http: HttpClient) {
   }
 
-  configureAuthentication() {
-    this.getAccessToken().subscribe((token) => {
-      localStorage.setItem(this.oauth2_token_key, JSON.stringify(token));
+  refreshToken(): Promise<AuthToken> {
+    return new Promise((resolve, reject) => {
+      this.getAccessTokenRequest().subscribe((token) => {
+        const expiredAt = new Date();
+        expiredAt.setSeconds(expiredAt.getSeconds() + token.expires_in);
+        token.expires_at = expiredAt.getTime();
+
+        resolve(token);
+
+        localStorage.setItem(this.oauth2_token_key, JSON.stringify(token));
+      });
     });
   }
 
-  getToken() {
-    const tokenobj: AuthToken = JSON.parse(localStorage.getItem(this.oauth2_token_key));
-    return tokenobj.access_token;
+  getToken(): Promise<AuthToken> {
+    return new Promise((resolve, reject) => {
+      const tokenobj: AuthToken = JSON.parse(localStorage.getItem(this.oauth2_token_key));
+
+      if ((tokenobj == null || tokenobj === undefined) || this.tokenExpired()) {
+        this.refreshToken().then((newtoken) => {
+          resolve(newtoken);
+        });
+      } else {
+        resolve(tokenobj);
+      }
+    });
   }
 
-  getAccessToken(): Observable<AuthToken> {
+  getAccessTokenRequest(): Observable<AuthToken> {
     let oauth2_token_endpoint = this.config.tokenHost;
 
     const baseHost = oauth2_token_endpoint.replace(/^https?\:\/\//i, '');
@@ -46,9 +63,15 @@ export class AuthService {
       .replace('{0}', oauth2_client_id)
       .replace('{1}', oauth2_client_secret);
 
-    // console.log(body);
-
     return this.http.post<AuthToken>(oauth2_token_endpoint, body, httpOptions);
+  }
+
+  tokenExpired(): boolean {
+    const tokenobj: AuthToken = JSON.parse(localStorage.getItem(this.oauth2_token_key));
+
+    const now = new Date();
+
+    return tokenobj.expires_at < now.getTime();
   }
 }
 
@@ -56,6 +79,7 @@ export interface AuthToken {
   access_token: string;
   token_type: string;
   expires_in: number;
+  expires_at: number;
   refresh_token: string;
   scope: Array<string>;
 }

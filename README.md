@@ -84,7 +84,7 @@ export class AppComponent {
 | ------------- |:-------------:| ---------:|
 | getSettings()      | Will return the settings of the API. This describes certain endpoints and info. |  :white_check_mark:    |
 | getDecisionServices(decisionServiceId?: number)      | Will return you the list and details of all decision services and their version without parameters. With decisionServiceId: will return you the versions and details of a specific decision service.      |        |
-| getDecisionServiceVersions(decisionServiceId: number, version: number) | Will return you the details of a specific decision service version.      |        |
+| getDecisionServiceVersion(decisionServiceId: number, version: number) | Will return you the details of a specific decision service version.      |        |
 | executeDecisionServiceVersion(executionRequest: Execution.ApiExecutionRequest)      | Execute a descision service version, this returns all conclusions, from all decisions in the decision service. |      |
 | executeDecisionFree(freerequest: Execution.FreeExecutionRequest)      | Execute a decision. This function is only available if you are a Free user and doesn't support the full power of versioned execution. |  :white_check_mark:    |
 

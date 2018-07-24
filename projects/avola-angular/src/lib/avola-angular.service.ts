@@ -18,9 +18,6 @@ export class AvolaService {
   private baseUrl: string;
 
   constructor(@Inject('config') private config: AvolaOptions, private http: HttpClient, private auth: AuthService) {
-
-    // set authentication
-    this.auth.configureAuthentication();
     this.baseUrl = config.baseUrl;
   }
 
@@ -138,10 +135,10 @@ export class AvolaService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Avola Api returned code ${error.status},` +
-        `body was: ${error.error}`);
+        ` ${error.error.message}`);
     }
     // return an observable with a user-facing error message
     return throwError(
-      'Something bad happened during the request with Avola; please try again later.');
+      'Something happened during the request with Avola; please try again later.');
   }
 }
