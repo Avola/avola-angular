@@ -48,13 +48,13 @@ export class AvolaService {
       url = this.baseUrl + '/api/ApiExecution/decisions/list';
     }
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   })
+    // };
 
-    return this.http.get<Array<DecisionServiceDescription>>(url, httpOptions)
+    return this.http.get<Array<DecisionServiceDescription>>(url)
       .pipe(
         catchError(this.handleError)
       );
@@ -70,13 +70,13 @@ export class AvolaService {
     let url: string;
     url = this.baseUrl + '/api/ApiExecution/decisions/' + decisionServiceId + '/' + version;
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   })
+    // };
 
-    return this.http.get<DecisionServiceVersionDescription>(url, httpOptions)
+    return this.http.get<DecisionServiceVersionDescription>(url)
       .pipe(
         catchError(this.handleError)
       );
@@ -90,13 +90,13 @@ export class AvolaService {
     let url: string;
     url = this.baseUrl + '/api/ApiExecution/execute';
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   })
+    // };
 
-    return this.http.post<ExecutionResult>(url, executionRequest, httpOptions)
+    return this.http.post<ExecutionResult>(url, executionRequest)
       .pipe(
         catchError(this.handleError)
       );
@@ -110,13 +110,13 @@ export class AvolaService {
     let url: string;
     url = this.baseUrl + '/api/FreeExecution/executedecisiontable';
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   })
+    // };
 
-    return this.http.post<ExecutionResult>(url, freerequest, httpOptions)
+    return this.http.post<ExecutionResult>(url, freerequest)
     .pipe(
       catchError(this.handleError)
     );

@@ -57,8 +57,7 @@ export class AuthService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-Host-Override': baseHost
+        'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
 
